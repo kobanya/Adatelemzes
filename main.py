@@ -1,7 +1,7 @@
 ## NB 2023-05-03    Adatelemzés
 
 # az adott TXT fájl  beolvasása, darabolása és listába mentése
-def adatkinyeres ():
+def adatkinyeres():
     with open("utonevkonyv.txt", "r") as utonev:
         vezeteknevek_lista = []                       # lista definiálása
         for sor in utonev:                            # bejárás
@@ -11,7 +11,7 @@ def adatkinyeres ():
             for elem in sor_elemek[1:]:
                 if len(elem) == 6 and elem.isdigit():   # szám-e illetve 6 katkter hosszú-e
                     datumok.append(elem)                # listához adás
-            if len(datumok) > 0:                        # ha hosszabb mint 0 karakter
+            if len(datumok) > 0 and len(nev) > 0:                        # ha hosszabb mint 0 karakter
                 for datum in datumok:
                     vezeteknevek_lista.append((nev, datum))
                     print("{:s} - {:s}".format(datum, nev))
@@ -91,10 +91,27 @@ def gorog_osi():
     print('\nA görög és ősi nevek :')
     print(",".join(nevek))
 
+def nevnap_kereses():
+    datum = input('\nAdjon megy egy dátumot 04.23. formátumban: ')
+    with open("utonevkonyv.txt", "r") as f:
+        for sor in f:
+            sor_elemek = sor.strip().split("\t")  # vagy lehet "\t" helyett " "
+            nev = sor_elemek[0]
+            datumok = sor_elemek[1:]
+            if datum in datumok:
+                print(f"\n{nev} nevű személynek van névnapja ezen a napon.")
+                return
+        print("Erre a napra nincs névnap az adatbázisban.")
+
+
+
+
 adatkinyeres()
 darabszam()
 kezdobetu_szamolo()
 nincs_nevnap()
 gorog_osi()
+nevnap_kereses()
+
 
 
