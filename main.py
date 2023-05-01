@@ -19,7 +19,7 @@ def adatkinyeres ():
                 szoveg = " ".join(sor_elemek[1:])        # egyéb szöveg
                 print("{:s} - {:s}".format(nev, szoveg))
 
-# Nevek megszámolása, ezonosságok kizárásaával  1. FELADAT
+#  1. FELADAT  - Nevek megszámolása, ezonosságok kizárásaával
 def darabszam():
     with open("utonevkonyv.txt", "r") as f:             # megnyitás olvasására
         nevek = []                                      # lista definiálása
