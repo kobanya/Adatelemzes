@@ -65,25 +65,36 @@ def nincs_nevnap():
     with open("utonevkonyv.txt", "r") as f:
         for sor in f:
             sor_elemek = sor.strip().split(" ")
-            nev = sor_elemek[0]
+            if len(sor_elemek) == 1:
+                osszes_nev += 1
+                if not any(char.isdigit() for char in sor_elemek[0]):
+                    datum_nelkuli_nevek += 1
+            elif all(not elem.isdigit() for elem in sor_elemek):
+                osszes_nev += 1
+                datum_nelkuli_nevek += 1
 
-            if len(sor_elemek) == 1 and not any(char.isdigit() for char in nev):
-                osszes_nev += 1
-                datum_nelkuli_nevek += 1
-            elif len(sor_elemek) > 1 and not any(char.isdigit() for char in sor_elemek[1]):
-                osszes_nev += 1
-                datum_nelkuli_nevek += 1
-            else:
-                osszes_nev += 1
     print('\n----------------------------------------------')
     print("\nAz összes név száma:", osszes_nev)
     print("Azon nevek száma, amelyeknek nincs névnapja:", datum_nelkuli_nevek)
     print("Azon nevek százaléka, amelyeknek nincs névnapja: {:.2f}%".format((datum_nelkuli_nevek/osszes_nev)*100))
 
 
-
+def gorog_osi():
+    with open("utonevkonyv.txt", "r") as f:
+        nevek = []
+        for sor in f:
+            sor_elemek = sor.strip().split(":")
+            nev = sor_elemek[0]
+            leiras = " ".join(sor_elemek[1:])
+            if "görög" in leiras or "ősi" in leiras:
+                nevek.append(nev)
+    print('\nA görög és ősi nevek :')
+    print(",".join(nevek))
 
 adatkinyeres()
 darabszam()
 kezdobetu_szamolo()
 nincs_nevnap()
+gorog_osi()
+
+
