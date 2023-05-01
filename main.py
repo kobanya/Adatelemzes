@@ -19,5 +19,19 @@ def adatkinyeres ():
                 szoveg = " ".join(sor_elemek[1:])        # egyéb szöveg
                 print("{:s} - {:s}".format(nev, szoveg))
 
+# Nevek megszámolása, ezonosságok kizárásaával  1. FELADAT
+def darabszam():
+    with open("utonevkonyv.txt", "r") as f:             # megnyitás olvasására
+        nevek = []                                      # lista definiálása
+        for sor in f:                                   # Bejárás
+            sor_elemek = sor.strip().split(" ")         # darabolás
+            nev = sor_elemek[0]                         # az első elem kiválasztása- 0 index
+            if nev not in nevek:                        # ma még nincs a listában hozzáadod
+                nevek.append(nev)
+
+    print("A különböző keresztnevek száma:", len(nevek)) # kiírom a darabszámot
+
+
 
 adatkinyeres()
+darabszam()
