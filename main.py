@@ -58,9 +58,32 @@ def kezdobetu_szamolo():
             if i == 9:                  #  soronként  9 elem
                 print("")
                 i = 0
+def nincs_nevnap():
+    osszes_nev = 0
+    datum_nelkuli_nevek = 0
+
+    with open("utonevkonyv.txt", "r") as f:
+        for sor in f:
+            sor_elemek = sor.strip().split(" ")
+            nev = sor_elemek[0]
+
+            if len(sor_elemek) == 1 and not any(char.isdigit() for char in nev):
+                osszes_nev += 1
+                datum_nelkuli_nevek += 1
+            elif len(sor_elemek) > 1 and not any(char.isdigit() for char in sor_elemek[1]):
+                osszes_nev += 1
+                datum_nelkuli_nevek += 1
+            else:
+                osszes_nev += 1
+    print('\n----------------------------------------------')
+    print("\nAz összes név száma:", osszes_nev)
+    print("Azon nevek száma, amelyeknek nincs névnapja:", datum_nelkuli_nevek)
+    print("Azon nevek százaléka, amelyeknek nincs névnapja: {:.2f}%".format((datum_nelkuli_nevek/osszes_nev)*100))
+
 
 
 
 adatkinyeres()
 darabszam()
 kezdobetu_szamolo()
+nincs_nevnap()
