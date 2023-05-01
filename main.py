@@ -28,10 +28,39 @@ def darabszam():
             nev = sor_elemek[0]                         # az első elem kiválasztása- 0 index
             if nev not in nevek:                        # ma még nincs a listában hozzáadod
                 nevek.append(nev)
+    print('------------------------------------------------')
+    print("A különböző keresztnevek száma:", len(nevek), " darab")   # kiírom a darabszámot
 
-    print("A különböző keresztnevek száma:", len(nevek)) # kiírom a darabszámot
+
+def kezdobetu_szamolo():
+    with open("utonevkonyv.txt", "r") as f:             # megnyitás olvasására
+        kezdobetu_dict = {}                             # kezdőbetű szótár
+
+        for sor in f:                                   # Bejárás, szeleteléssel
+            sor_elemek = sor.strip().split(" ")         # szeletelés szúközzel
+
+            if len(sor_elemek) >= 1:
+                nev = sor_elemek[0]
+
+                if len(nev) >= 1:
+                    kezdobetu = nev[0]
+
+                    if kezdobetu in kezdobetu_dict:
+                        kezdobetu_dict[kezdobetu] += 1
+                    else:
+                        kezdobetu_dict[kezdobetu] = 1
+
+        i = 0
+        for kezdobetu, gyakorisag in kezdobetu_dict.items():                # kezdőbetű kiírása
+            print("{:s} - {:d}\t".format(kezdobetu, gyakorisag), end=" ")
+
+            i += 1
+            if i == 9:                  #  soronként  9 elem
+                print("")
+                i = 0
 
 
 
 adatkinyeres()
 darabszam()
+kezdobetu_szamolo()
